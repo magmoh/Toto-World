@@ -1,0 +1,60 @@
+services:
+  - type: web
+    name: toto-world
+    runtime: node
+    plan: starter
+    buildCommand: tar -xzf source-bundle.tar.gz && mkdir -p assets/demo-scenes assets/reference && tar -xzf assets-bundle.tar.gz && npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit
+    disk:
+      name: toto-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: DATA_DIR
+        value: /var/data
+      - key: BASE_URL
+        sync: false
+      - key: ENABLE_AI_GENERATION
+        value: "false"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_IMAGE_MODEL
+        value: gpt-image-2
+      - key: IMAGE_QUALITY
+        value: medium
+      - key: ENABLE_PAYMENTS
+        value: "false"
+      - key: ENABLE_DEMO_PAYMENT
+        value: "true"
+      - key: MOYASAR_PUBLISHABLE_KEY
+        sync: false
+      - key: MOYASAR_SECRET_KEY
+        sync: false
+      - key: APP_PRICE_HALALAS
+        value: "4900"
+      - key: APP_CURRENCY
+        value: SAR
+      - key: AUTO_GENERATE_AFTER_PAYMENT
+        value: "false"
+      - key: DELETE_CHILD_PHOTO_AFTER_GENERATION
+        value: "true"
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: BUSINESS_NAME
+        value: Toto World
+      - key: CR_NUMBER
+        sync: false
+      - key: VAT_NUMBER
+        sync: false
+      - key: VAT_INCLUDED
+        value: "false"
+      - key: SUPPORT_EMAIL
+        sync: false
+      - key: SUPPORT_PHONE
+        sync: false
+      - key: SUPPORT_RESPONSE_SLA
+        value: يومان عمل
